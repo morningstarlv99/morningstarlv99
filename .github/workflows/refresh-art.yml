@@ -1,0 +1,56 @@
+name: refresh profile art
+
+# Redraws the panels from live API data and commits them if anything moved.
+# This is the bit that makes the graphs graphs rather than a snapshot: push a
+# commit anywhere, earn a star, start a repo, and the profile catches up on its
+# own within the day.
+
+on:
+  schedule:
+    # 04:17 UTC daily. An odd minute on purpose — GitHub drops scheduled jobs
+    # that pile up on the hour, and the whole point is that this actually runs.
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/refresh-art.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-art
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Render panels
+        env:
+          # PROFILE_TOKEN is optional. Without it everything still renders, but
+          # the contribution garden stays empty: the calendar only exists in
+          # GraphQL, and the default GITHUB_TOKEN cannot always read a user's
+          # contributionsCollection. A classic PAT with read:user fills it in.
+          GH_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
+        run: python scripts/render_profile.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets
+          if git diff --staged --quiet; then
+            echo "nothing moved today"
+          else
+            git commit -m "chore: refresh profile art"
+            git push
+          fi

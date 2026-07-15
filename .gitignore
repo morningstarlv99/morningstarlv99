@@ -1,0 +1,4 @@
+# Local PNG contact sheets from scripts/preview_png.py. Review artifacts, not
+# deliverables — the profile ships SVG.
+_preview/
+__pycache__/
