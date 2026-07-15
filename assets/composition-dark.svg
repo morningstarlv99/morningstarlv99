@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 100" width="880" height="100" role="img" aria-label="Composition of public code: C++ 100 percent.">
+  <defs>
+    <style>
+      .paper  { fill: #14120F; }
+      .muted  { fill: #978F84; }
+      .ink    { fill: #F0EBE3; }
+      .accent { fill: #D98466; }
+      .track  { fill: #2A251F; }
+      .rule-h { stroke: #F0EBE3; }
+      .serif  { font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Times New Roman', Times, serif; }
+      .sans   { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    </style>
+  </defs>
+
+  <rect class="paper" x="0" y="0" width="880" height="100"/>
+
+  <text class="sans muted" x="40"  y="28" font-size="10.5" letter-spacing="2.6">COMPOSITION</text>
+  <text class="sans muted" x="838" y="28" font-size="10.5" letter-spacing="2.6" text-anchor="end">PUBLIC CODE</text>
+  <line class="rule-h" x1="40" y1="40" x2="840" y2="40" stroke-width="1.5"/>
+
+  <!-- bar -->
+  <rect class="track"  x="40" y="56" width="800" height="9"/>
+  <rect class="accent" x="40" y="56" width="800" height="9"/>
+
+  <!-- legend -->
+  <rect class="accent" x="40" y="82" width="8" height="8"/>
+  <text class="serif ink"   x="56"  y="90" font-size="13">C++</text>
+  <text class="sans muted"  x="838" y="90" font-size="10.5" letter-spacing="1.6" text-anchor="end">100%</text>
+</svg>
